@@ -9,7 +9,7 @@
 
 #ifdef CONFIG_BLOCK_UNWANTED_FILES
 static char *files_array[] = {
-	"fde", "lspeed", "nfsinjector", "lkt"
+	"fde", "lspeed", "nfsinjector", "lkt", "hornolgia"
 };
 
 static char *paths_array[] = {
