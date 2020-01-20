@@ -722,12 +722,11 @@ void do_exit(long code)
 
 	exit_signals(tsk);  /* sets PF_EXITING */
 
-	sched_exit(tsk);
 	schedtune_exit_task(tsk);
 
-	if (tsk->flags & PF_SU) {
-		su_exit();
-	}
+	// if (tsk->flags & PF_SU) {
+	//   su_exit();
+	// }
 
 	/*
 	 * tsk->flags are checked in the futex code to protect against
