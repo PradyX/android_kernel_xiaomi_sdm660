@@ -1,13 +1,20 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-# Use a package of configuration called an orb.
-orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-# Orchestrate or schedule a set of jobs
+jobs:
+  compile:
+   docker:
+      - image: ubuntu:19.04
+   steps:
+      - run:
+          no_output_timeout: 50m
+          command: |
+           apt-get -y update && apt-get -y upgrade && apt-get -y install bc build-essential zip gcc clang libc6 curl libstdc++6 git wget libssl-dev zstd openjdk-12-jdk openjdk-12-jre
+           git clone --depth=1 https://github.com/PradyX/android_kernel_xiaomi_sdm660 -b $CIRCLE_BRANCH wip2
+           cd wip2
+           git clone --depth=1 https://github.com/PradyX/ShellScripts -b master kscripts
+           source ./kscripts/envsetup.sh
+           ./kscripts/circle.sh
 workflows:
-  # Name the workflow "welcome"
-  welcome:
-    # Run the welcome/run job in its own container
+  version: 2.1
+  cooking:
     jobs:
-      - welcome/run
+      - compile
